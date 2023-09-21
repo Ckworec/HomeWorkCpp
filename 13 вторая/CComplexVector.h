@@ -26,14 +26,17 @@ class CComplexVector
     public:
         CComplexVector();
         CComplexVector(int len);
+        CComplexVector(const CComplexVector &&vect);
 
         ~CComplexVector();
 
         CComplexVector& operator=(const CComplexVector &vector);
+        CComplexVector& operator=(CComplexVector &&v);
         CComplexVector operator+(const CComplexVector &vector);
         CComplexVector operator-(const CComplexVector &vector);
         CComplexNumber operator*(const CComplexVector &vector);
         void copyFrom(const CComplexVector &v);
+        void CopyMove(const CComplexVector &v);
         friend std :: ostream& operator<<(std :: ostream &out, const CComplexVector& vector);
         friend class CComplexNumber;
 };

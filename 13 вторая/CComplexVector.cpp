@@ -12,12 +12,12 @@ CComplexNumber :: CComplexNumber() : CComplexNumber :: CComplexNumber(1, 1) {}
 CComplexVector :: CComplexVector(int num)
 {
     len = num;
-	m_Real = new double[num];
-    m_Imaginary = new double[num];
+    m_Real = new double[len];
+    m_Imaginary = new double[len];
 
-	for (int k = 0; k < len; ++ k)
+for (int k = 0; k < len; ++ k)
     {
-		m_Imaginary[k] = rand() / static_cast<double>(RAND_MAX);
+        m_Imaginary[k] = rand() / static_cast<double>(RAND_MAX);
         m_Real[k] = rand() / static_cast<double>(RAND_MAX);
     }
 
@@ -32,10 +32,10 @@ CComplexVector& CComplexVector :: operator=(const CComplexVector &vect)
 	len = vect.len;
 
 	for (int k = 0; k < len; ++ k)
-    {
-		m_Imaginary[k] = vect.m_Imaginary[k];
-        m_Real[k] = vect.m_Real[k];
-    }
+        {
+            m_Imaginary[k] = vect.m_Imaginary[k];
+            m_Real[k] = vect.m_Real[k];
+        }
 	
 	return *this;
 }
@@ -50,7 +50,7 @@ CComplexNumber :: CComplexNumber(double Real, double Imaginary)
 CComplexVector :: ~CComplexVector()
 {
     //std :: cout << "Destructor for " << *this << std :: endl;
-	delete []m_Imaginary;
+    delete []m_Imaginary;
     delete []m_Real;
 	//std :: cout << "Destructor" << std :: endl;
 }
@@ -63,6 +63,8 @@ CComplexNumber :: ~CComplexNumber()
 CComplexVector CComplexVector :: operator+(const CComplexVector &vector)
 {
     CComplexVector result(N);
+
+    result.len = vector.len;
 
     for (int i = 0; i < N; i ++)
     {
@@ -127,4 +129,29 @@ void CComplexNumber :: copyFrom(const CComplexNumber &v) // функция ко�
 {
         m_Real = v.m_Real;
         m_Imaginary = v.m_Imaginary;
+}
+
+CComplexVector& CComplexVector :: operator=(CComplexVector &&v)
+{
+    if (this == &v)
+            return *this;
+
+    delete []m_Real;
+    delete []m_Imaginary;
+
+    len = v.len;
+    m_Real = v.m_Real;
+    m_Imaginary = v.m_Imaginary;
+    v.m_Real = nullptr;
+    v.m_Imaginary = nullptr;
+
+    return *this;
+}
+
+CComplexVector :: CComplexVector(const CComplexVector &&v) :
+    CComplexVector(v.len)
+{
+    len = v.len;
+    m_Real = v.m_Real;
+    m_Imaginary = v.m_Imaginary;
 }
