@@ -61,7 +61,7 @@ ArrayPolygonalArea ArrayPolygonalArea :: delete_area(int i)
     return *this;
 }
 
-PolygonalArea PolygonalArea :: operator=(const PolygonalArea &area)
+PolygonalArea& PolygonalArea :: operator=(const PolygonalArea &area)
 {
     len = area.len;
 
@@ -74,7 +74,7 @@ PolygonalArea PolygonalArea :: operator=(const PolygonalArea &area)
     return *this;
 }
 
-PolygonalArea PolygonalArea :: operator=(PolygonalArea &&area)
+PolygonalArea& PolygonalArea :: operator=(PolygonalArea &&area)
 {
     len = area.len;
 
@@ -83,7 +83,7 @@ PolygonalArea PolygonalArea :: operator=(PolygonalArea &&area)
     return *this;
 }
 
-PolygonalArea PolygonalArea :: operator+(PolygonalArea &area)//объединение
+PolygonalArea& PolygonalArea :: operator+(PolygonalArea &area)//объединение
 {
     int flag = 0, cur, min;
     Point point, intersection;
@@ -165,7 +165,7 @@ PolygonalArea PolygonalArea :: operator+(PolygonalArea &area)//объедине�
     return *this;
 }
 
-PolygonalArea PolygonalArea :: operator*(PolygonalArea &area)//пересечение
+PolygonalArea& PolygonalArea :: operator*(PolygonalArea &area)//пересечение
 {
     PolygonalArea tmp;
     Point point, intersection;
@@ -251,22 +251,22 @@ PolygonalArea PolygonalArea :: operator*(PolygonalArea &area)//пересече�
         }
     }
 
-    return tmp;
+    component.clear();
+    component.shrink_to_fit();
+
+    *this = tmp;
+
+    return *this;
 }
 
-Point PolygonalArea :: operator[](int i)
-{
-    std :: cout << "Point: (" << component[i].x << "; " << component[i].y << ")" << std :: endl;
-}
-
-PolygonalArea PolygonalArea :: coordinate_change(int i, Point point)
+PolygonalArea& PolygonalArea :: coordinate_change(int i, Point point)
 {
     component[i] = point;
 
     return *this;
 }
 
-PolygonalArea PolygonalArea :: add_point(int k, Point point)
+PolygonalArea& PolygonalArea :: add_point(int k, Point point)
 {
     double x, y;
     Point tmp;
@@ -284,7 +284,7 @@ PolygonalArea PolygonalArea :: add_point(int k, Point point)
     return *this;
 }
 
-PolygonalArea PolygonalArea :: delete_point(int i)
+PolygonalArea& PolygonalArea :: delete_point(int i)
 {
     len --;
 

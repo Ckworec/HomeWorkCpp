@@ -36,15 +36,14 @@ class PolygonalArea
         
         ~PolygonalArea();
         
-        PolygonalArea operator+(PolygonalArea &area);//объединение
-        PolygonalArea operator*(PolygonalArea &area);//пересечение
-        PolygonalArea operator=(const PolygonalArea &area);//сравнение
-        PolygonalArea operator=(PolygonalArea &&area);
-        Point operator[](int i);//итератор
+        PolygonalArea& operator+(PolygonalArea &area);//объединение
+        PolygonalArea& operator*(PolygonalArea &area);//пересечение
+        PolygonalArea& operator=(const PolygonalArea &area);//сравнение
+        PolygonalArea& operator=(PolygonalArea &&area);
         Point intersection_point(const PolygonalArea &area, int k1, int k2);//поиск точки пересечения для объединения
-        PolygonalArea coordinate_change(int i, Point point);//изменение координаты
-        PolygonalArea add_point(int k, Point point);//добавление точки
-        PolygonalArea delete_point(int i);//удаление точки
+        PolygonalArea& coordinate_change(int i, Point point);//изменение координаты
+        PolygonalArea& add_point(int k, Point point);//добавление точки
+        PolygonalArea& delete_point(int i);//удаление точки
         int position(const Point &point);//позиция
         friend class ArrayPolygonalArea;
         int point_on_a_line(const Point &point);
