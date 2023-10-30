@@ -19,8 +19,6 @@ int main(void)
         std :: cout << "Enter coordinates x and y: ";
         std :: cin >> x >> y;
         Point point(x, y);
-        //Point point(rand() % 50, rand() % 50);
-        //std :: cout << "Coordinates point: (" << point.x << ", " << point.y << ")" << std :: endl;
 
         //area.position(point);
         area.position1(point);

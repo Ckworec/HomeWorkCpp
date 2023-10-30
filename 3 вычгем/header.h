@@ -47,7 +47,7 @@ class PolygonalArea
         
         ~PolygonalArea();
 
-        int position(const Point &point);//позиция
+        //int position(const Point &point);//позиция
         int position1(const Point &point);
         friend std :: ostream& operator<<(std :: ostream &out, const PolygonalArea& area);
 };

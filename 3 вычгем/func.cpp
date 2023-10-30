@@ -1,6 +1,6 @@
 #include "header.h"
 
-int PolygonalArea :: position(const Point &point)// https://ru.stackoverflow.com/questions/464787/%D0%A2%D0%BE%D1%87%D0%BA%D0%B0-%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B8-%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%B0
+/*int PolygonalArea :: position(const Point &point)
 {
     bool result = false;
     int j = len - 1;
@@ -19,8 +19,7 @@ int PolygonalArea :: position(const Point &point)// https://ru.stackoverflow.com
 
         if (fabs((point.x - component[i].x) * (component[j].y - component[i].y) - (component[j].x - component[i].x) * (point.y - component[i].y)) < eps)
         {
-            if (std :: min(component[i].y, component[j].y) <= point.y && std :: max(component[i].y, component[j].y) >= point.y &&
-             std :: min(component[i].x, component[j].x) <= point.x && std :: max(component[i].x, component[j].x) >= point.x)
+            if (std :: min(component[i].y, component[j].y) <= point.y && std :: max(component[i].y, component[j].y) >= point.y && std :: min(component[i].x, component[j].x) <= point.x && std :: max(component[i].x, component[j].x) >= point.x)
             {
                 std :: cout << "The point lies on the boundary of the region" << std :: endl;
                 return 0;
@@ -37,7 +36,7 @@ int PolygonalArea :: position(const Point &point)// https://ru.stackoverflow.com
     std :: cout << "The point lies in the region" << std :: endl;
 
     return 1;
-}
+}*/
 
 int PolygonalArea :: position1(const Point &point)
 {
