@@ -19,8 +19,7 @@ int main(void)
         std :: cout << "Enter coordinates x and y: ";
         std :: cin >> x >> y;
         Point point(x, y);
-
-        //area.position(point);
+        
         area.position1(point);
     }
 

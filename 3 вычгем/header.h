@@ -47,9 +47,10 @@ class PolygonalArea
         
         ~PolygonalArea();
 
-        //int position(const Point &point);//позиция
+        int position(const Point &point);//позиция
         int position1(const Point &point);
         friend std :: ostream& operator<<(std :: ostream &out, const PolygonalArea& area);
+        int chek_point_line_segment(int k, const Point &point);
 };
 
 class Vector
@@ -60,7 +61,7 @@ class Vector
     public:
         Vector();
         
-        Vector(int x, int y, int z);
+        Vector(double x, double y, double z);
         double operator[](int i);
         
         Vector operator()(Vector a,Vector b);
