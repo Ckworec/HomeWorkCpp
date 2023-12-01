@@ -7,7 +7,7 @@
 
 int main()
 {
-    CComplexVector vector1(N), vector2(N), vector3(N); //, vector4;
+    CComplexVector vector1(N), vector2(N), vector3(N);
 
     std :: cout << "\n Vector1 : (" << vector1 << ")\n\n" << " Vector2 : (" << vector2 << ")" << std :: endl;
 

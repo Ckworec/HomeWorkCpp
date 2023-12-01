@@ -50,7 +50,6 @@ CComplexNumber :: CComplexNumber(double Real, double Imaginary)
 {
     m_Real = Real;
     m_Imaginary = Imaginary;
-    //std :: cout << "Constructor" << std :: endl; // endl - тоже самое что и \n
 }
 
 CComplexVector :: ~CComplexVector()
@@ -62,7 +61,7 @@ CComplexVector :: ~CComplexVector()
 
 CComplexNumber :: ~CComplexNumber()
 {
-    //std :: cout << "Destructor" << std :: endl;
+    
 }
 
 CComplexVector CComplexVector :: operator+(const CComplexVector &vector)
@@ -144,10 +143,6 @@ CComplexVector& CComplexVector :: operator=(CComplexVector &&v)
     len = v.len;
     m_Real = std :: move(v.m_Real);
     m_Imaginary = std :: move(v.m_Imaginary);
-    //m_Real = v.m_Real;
-    //m_Imaginary = v.m_Imaginary;
-    //v.m_Real = nullptr;
-    //v.m_Imaginary = nullptr;
 
 
     return *this;

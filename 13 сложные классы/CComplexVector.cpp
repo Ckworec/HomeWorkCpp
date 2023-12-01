@@ -20,8 +20,6 @@ for (int k = 0; k < len; ++ k)
         m_Imaginary[k] = rand() / static_cast<double>(RAND_MAX);
         m_Real[k] = rand() / static_cast<double>(RAND_MAX);
     }
-
-    //std :: cout << "Constructor" << std :: endl; // endl - тоже самое что и \n
 }
 
 CComplexVector& CComplexVector :: operator=(const CComplexVector &vect)
@@ -43,21 +41,17 @@ CComplexVector& CComplexVector :: operator=(const CComplexVector &vect)
 CComplexNumber :: CComplexNumber(double Real, double Imaginary)
 {
     m_Real = Real;
-    m_Imaginary = Imaginary;
-    //std :: cout << "Constructor" << std :: endl; // endl - тоже самое что и \n
-}
+    m_Imaginary = Imaginary;}
 
 CComplexVector :: ~CComplexVector()
 {
-    //std :: cout << "Destructor for " << *this << std :: endl;
     delete []m_Imaginary;
     delete []m_Real;
-	//std :: cout << "Destructor" << std :: endl;
 }
 
 CComplexNumber :: ~CComplexNumber()
 {
-        //std :: cout << "Destructor" << std :: endl;
+    
 }
 
 CComplexVector CComplexVector :: operator+(const CComplexVector &vector)
