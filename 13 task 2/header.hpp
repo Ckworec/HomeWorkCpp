@@ -14,6 +14,7 @@
 #include <cstring>
 #include <ios>
 #include <iomanip>
+#include <chrono>
 #define eps 1.e-15
 
 typedef struct Node 
@@ -212,7 +213,19 @@ class Table
             element_table.erase(element_table.begin() + j);
             for (int i = 0; i < static_cast<int>(element_table.size()); i ++)
             {
-                element_table[i].ID = i;
+                element_table[i].ID = i + 1;
+            }
+        }
+
+        void save_table()
+        {
+            std :: fstream save_file("save.txt", std::ios_base::out);
+
+            save_file.seekg(0, std::ios::beg);
+
+            for (int i = 0; i < static_cast<int>(element_table.size()); i ++)
+            {
+                save_file << element_table[i].file_name << "\n";
             }
         }
 
@@ -235,6 +248,8 @@ class Table_Element
         int ID;
         std :: string file_name;
         Node *file;
+        std :: time_t time_create;
+        std :: time_t time_last_change;
 
     public:
         Table_Element();
@@ -246,11 +261,11 @@ class Table_Element
         void write_letter_in_file(std :: string letter, int size_offsets);
         int len_of_file();
         void read_part_of_file(int len, int size_offsets);
-        void copy_file(const Table_Element &cell);
+        void copy_file(Table_Element &cell);
         void rename_file(std :: string new_name);
         friend std :: ostream& operator<<(std :: ostream &out, const Table_Element& cell)
         {
-            std :: cout << std :: setw(2) << cell.ID << std :: setw(20) << cell.file_name << std :: endl;
+            std :: cout << std :: setw(2) << cell.ID << std :: setw(20) << cell.file_name << std :: setw(60) << std::put_time(std::localtime(&cell.time_create), "%c %Z") <<  std :: setw(60) << std::put_time(std::localtime(&cell.time_last_change), "%c %Z") << std :: endl;
             return out;
         }
 

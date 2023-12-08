@@ -5,7 +5,17 @@ int main(void)
     List FAT;
     Table<Table_Element> table;
     int command, number, number1, id = 1, size_off;
-    std :: string namef1, namef2, letter;
+    std :: string namef1, namef2, letter, Cyberpunk;
+    std :: fstream save("save.txt", std::ios_base::in);
+
+    while (std :: getline(save, Cyberpunk)) 
+    {
+        FAT.push_back(Cyberpunk);
+        table.push_back(Table_Element(id, Cyberpunk, FAT[id - 1]));
+        id ++;
+    }
+
+    save.close();
 
     std :: cout << "List of commands: \n1. Create new file \n2. Delete file \n3. Copy file \n4. List of files\n5. Len of file \n6. Write in file a certain number of bytes at a specified offset from the beginning of the file \n7. Rename file \n8. Read file a certain number of bytes at a specified offset from the beginning of the file \n9. List of commands \n0. Exit" << std :: endl;
 
@@ -68,7 +78,7 @@ int main(void)
         }
         else if (command == 4)
         {
-            std :: cout << std :: setw(2) << "ID" << std :: setw(20) << "File name" << std :: endl;
+            std :: cout << std :: setw(2) << "ID" << std :: setw(20) << "File name" << std :: setw(60) << "Create time" << std :: setw(60) << "Last change" << std :: endl;
             std :: cout << table;
         }
         else if (command == 5)
@@ -93,8 +103,6 @@ int main(void)
             std :: cin >> namef1;
 
             number = table.find_file(namef1);
-
-            std :: cout << "number = " << number << std :: endl;
 
             if (number == -1)
             {
@@ -149,12 +157,14 @@ int main(void)
         }
         else if (command == 9)
         {
-            std :: cout << "List of commands: /n1. Create new file /n2. Delete file /n3.Copy file /n4. List of files/n 5. Len of file /n 6. Write in file a certain number of bytes at a specified offset from the beginning of the file /n7. Rename file /n8. Read file a certain number of bytes at a specified offset from the beginning of the file /n9. List of commands /n0. Exit/n" << std :: endl;
+            std :: cout << "List of commands: \n1. Create new file \n2. Delete file \n3.Copy file \n4. List of files\n 5. Len of file \n 6. Write in file a certain number of bytes at a specified offset from the beginning of the file \n7. Rename file \n8. Read file a certain number of bytes at a specified offset from the beginning of the file \n9. List of commands \n0. Exit\n" << std :: endl;
         }
 
         std :: cout << "Enter the number of commands: ";
         std :: cin >> command;
     }
+
+    table.save_table();
 
     for (int i = 0; i < id; i ++)
     {
