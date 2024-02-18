@@ -24,7 +24,6 @@ Table_Element :: ~Table_Element()
 int Table_Element :: len_of_file()
 {
     int i;
-//    std :: fstream &file1 = file -> val;
 
     file -> val.seekg(0, std :: ios :: end);
 
@@ -37,7 +36,6 @@ int Table_Element :: len_of_file()
 
 void Table_Element :: read_part_of_file(int len, int size_offsets)
 {
-//    std :: fstream &file1 = file -> val;
     char var;
     int i = 0;
 
@@ -57,9 +55,6 @@ void Table_Element :: read_part_of_file(int len, int size_offsets)
 
 void Table_Element :: write_letter_in_file(std :: string letter, int size_offsets)
 {
-//    file -> val << "hfghg";
-
-//    std :: cout << "--2--\n" << std::endl;
     auto now = std::chrono::system_clock::now();
 
     (file -> val).seekp(size_offsets, std :: ios_base :: beg);

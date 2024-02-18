@@ -56,13 +56,6 @@ typedef struct List
         last = p;
     }
 
-    /*Node* find(std :: fstream _val)
-    {
-        Node* p = first;
-        while (p && p -> val != _val) p = p -> next;
-		    return (p && p -> val == _val) ? p : nullptr;
-    }*/
-
     void remove_first() 
     {
         if (is_empty()) return;
@@ -254,7 +247,6 @@ class Table_Element
     public:
         Table_Element();
         Table_Element(int id, std :: string name, Node *f);
-        //Table_Element(const Table_Element &cell);
 
         ~Table_Element();
 
