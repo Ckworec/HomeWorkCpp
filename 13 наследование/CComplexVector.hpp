@@ -1,6 +1,8 @@
+#pragma once
 #include <iostream>
 #include <ostream>
 #include <fstream>
+#include <cstring>
 #include <string>
 #include <vector>
 #include <iterator>
@@ -17,11 +19,28 @@ class CComplexNumber
     public:
         CComplexNumber();
         CComplexNumber(double Real, double Imaginary);
+        CComplexNumber(const CComplexNumber &num)
+        {
+            m_Real = num.m_Real;
+            m_Imaginary = num.m_Imaginary;
+        }
+        CComplexNumber(CComplexNumber &&num)
+        {
+            m_Real = num.m_Real;
+            m_Imaginary = num.m_Imaginary;
+        }
 
         ~CComplexNumber();
         
         friend std :: ostream& operator<<(std :: ostream &out, const CComplexNumber& vector);
-        friend CComplexVector;
+        CComplexNumber& operator=(const CComplexNumber& n)
+        {
+            m_Real = n.m_Real;
+            m_Imaginary = n.m_Imaginary;
+
+            return *this;
+        }
+        friend class CComplexVector;
 };
 
 class CComplexVector
@@ -29,22 +48,34 @@ class CComplexVector
     public:
         int len;
         int id_children;
-        const char* file_name;
-        double *m_Real;
-        double *m_Imaginary;
+        char file_name[10];
+        vector<double> m_Real;
+        vector<double> m_Imaginary;
 
         CComplexVector();
         CComplexVector(int len, const char* file_name);
+        CComplexVector(const CComplexVector &v)
+        {
+            len = v.len;
+            id_children = v.id_children;
+            strcpy(file_name, v.file_name);
+            cout << "--2--" << endl;
+            m_Real = v.m_Real;
+            m_Imaginary = v.m_Imaginary;
+
+            cout << "--2--" << endl;
+        }
 
         virtual ~CComplexVector();
 
         CComplexVector& operator=(const CComplexVector& vector);
         CComplexVector& operator=(CComplexVector&& vector);
 
-        static void Input(const char *filename, vector<CComplexVector> &vector);
+        static void Input(const char *filename, vector<CComplexVector *> &vector);
         virtual void output(const char* filename) = 0;
+        virtual void show() = 0;
 
-        CComplexNumber& operator[](int index);
+        CComplexNumber operator[](int index);
 };
 
 class ChildClass1 : public CComplexVector
@@ -75,4 +106,4 @@ class ChildClass2 : public CComplexVector
 
 ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2);
 ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2);
-CComplexNumber operator*(const CComplexVector &v1, CComplexVector &v2); 
+CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2);
