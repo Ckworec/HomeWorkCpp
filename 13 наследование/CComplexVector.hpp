@@ -46,7 +46,7 @@ class CComplexNumber
 class CComplexVector
 {
     public:
-        int len;
+        int len = 0;
         int id_children;
         char file_name[10];
         vector<double> m_Real;
@@ -59,11 +59,8 @@ class CComplexVector
             len = v.len;
             id_children = v.id_children;
             strcpy(file_name, v.file_name);
-            cout << "--2--" << endl;
             m_Real = v.m_Real;
             m_Imaginary = v.m_Imaginary;
-
-            cout << "--2--" << endl;
         }
 
         virtual ~CComplexVector();

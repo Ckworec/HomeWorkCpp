@@ -141,61 +141,74 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
             {
                 ChildClass1 *w = new ChildClass1;
 
-                    int i;
-                    ++it;
+                int i;
+                ++it;
 
-                    name = (*it);
+                name = (*it);
 
-                    ++it;
+                ++it;
 
-                    //cout << "--1--\n" << endl;
+                //cout << "--1--\n" << endl;
 				
-                    for (i = 0; /*i < vector[i] -> len && */it != istream_iterator<string>(); ++it)
-                    {
-                        if (i % 2 == 0)
-                        {
-                            //cout << (*it) << endl;
-                            (*w).m_Real.push_back(stod(*it));
-                        }
-                        else
-                        {
-                            (*w).m_Imaginary.push_back(stod(*it));
-                        }
-                    }
-
-                    (*w).id_children = 0;
-
-                    vector.push_back(w);
-                }
-                if (fabs(stod(*it) - 1) < eps)
+                for (i = 0; /*i < vector[i] -> len && */it != istream_iterator<string>(); ++it)
                 {
-                    ChildClass2 *w = new ChildClass2;
-                
-                    int i;
-                    ++it;
-
-                    name = (*it);
-                    ++it;
-				
-                    for (i = 0; /*i < vector[i] -> len && */it != std :: istream_iterator<std :: string>(); ++it)
+                    //cout << (*it) << endl;
+                    if (i % 2 == 0)
                     {
-                        if (i % 2 == 0)
-                        {
-                            (*w).m_Real.push_back(stod(*it));
-                        }
-                        else
-                        {
-                            (*w).m_Imaginary.push_back(stod(*it));
-                        }
+                        (*w).m_Real.push_back(stod(*it));
+                    }
+                    else
+                    {
+                        (*w).m_Imaginary.push_back(stod(*it));
                     }
 
-                    (*w).id_children = 1;
+                    (*w).len ++;
 
-                    vector.push_back(w);
+                    i ++;
                 }
+
+                (*w).id_children = 0;
+
+                (*w).len /= 2;
+
+                vector.push_back(w);
             }
+            if (fabs(stod(*it) - 1) < eps)
+            {
+                ChildClass2 *w = new ChildClass2;
+                
+                int i;
+                ++it;
+
+                name = (*it);
+                ++it;
+				
+                for (i = 0; /*i < vector[i] -> len && */it != std :: istream_iterator<std :: string>(); ++it)
+                {
+                    //cout << (*it) << endl;
+                    if (i % 2 == 0)
+                    {
+                        (*w).m_Real.push_back(stod(*it));
+                    }
+                    else
+                    {
+                        (*w).m_Imaginary.push_back(stod(*it));
+                    }
+
+                    (*w).len ++;
+
+                    i ++;
+                }
+
+                (*w).id_children = 1;
+
+                (*w).len /= 2;
+
+                vector.push_back(w);
+            }
+        }
 	}
-   }
+}
 
 void ChildClass1 :: show()
 {
