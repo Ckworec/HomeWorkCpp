@@ -48,8 +48,8 @@ void Table_Element :: read_part_of_file(int len, int size_offsets)
     }
 
     std :: cout << std :: endl;
-    file->val.close();
-    file->val.open(file_name, std::ios_base::in | std::ios_base::out);
+    file -> val.close();
+    file -> val.open(file_name, std::ios_base::in | std::ios_base::out);
     (file -> val).seekp(0, std :: ios_base :: beg);
 }
 

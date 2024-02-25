@@ -29,7 +29,7 @@ int main(void)
 
             child2.show();
             cout << "\n" << endl;
-            child2.output();
+            //child2.output();
         }
 
         else if (command == 2)
@@ -44,7 +44,7 @@ int main(void)
 
             child1.show();
             cout << "\n" << endl;
-            child1.output();
+            //child1.output();
         }
 
         else if (command == 3)

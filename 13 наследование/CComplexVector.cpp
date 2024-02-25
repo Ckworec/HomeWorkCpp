@@ -2,9 +2,9 @@
 
 void ChildClass1 :: output()
 {
-    fstream out(file_name.c_str(), ios_base :: out | ios_base :: ate);
+    //remove(file_name.c_str());
 
-    out.seekg(0, ios_base :: end);
+    ofstream out(file_name.c_str(), std :: ios_base :: app);
 
     out << "Vector: " << endl;
 
@@ -18,9 +18,9 @@ void ChildClass1 :: output()
 
 void ChildClass2 :: output()
 {
-    fstream out(file_name.c_str(), ios_base :: out | ios_base :: ate);
+    //remove(file_name.c_str());
 
-    out.seekg(0, ios_base :: end);
+    ofstream out(file_name.c_str(), ios_base :: app);
 
     out << "Vector: " << endl;
 
@@ -66,7 +66,7 @@ ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2)
 
     result.file_name = v1.file_name;
 
-    //result.output();
+    result.output();
 
     return result;
 }
@@ -83,7 +83,7 @@ ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2)
 
     result.file_name = v1.file_name;
 
-    //result.output();
+    result.output();
 
     return result;
 }
@@ -162,9 +162,10 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 (*w).file_name = name;
 
-                ++it;
+                ofstream out(name.c_str(), ios_base :: trunc);
+                out.close();
 
-                //cout << "--1--\n" << endl;
+                ++it;
 				
                 for (i = 0; /*i < vector[i] -> len && */it != istream_iterator<string>(); ++it)
                 {
@@ -185,7 +186,7 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 (*w).id_children = 0;
 
-                (*w).len /= 2;
+                (*w).len = 2;
 
                 vector.push_back(w);
             }
@@ -197,6 +198,9 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
                 ++it;
 
                 name = (*it);
+
+                ofstream out(name.c_str(), ios_base :: trunc);
+                out.close();
 
                 (*w).file_name = name;
 
