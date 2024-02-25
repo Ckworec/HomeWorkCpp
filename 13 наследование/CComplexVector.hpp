@@ -48,17 +48,17 @@ class CComplexVector
     public:
         int len = 0;
         int id_children;
-        char file_name[10];
+        string file_name;;
         vector<double> m_Real;
         vector<double> m_Imaginary;
 
         CComplexVector();
-        CComplexVector(int len, const char* file_name);
+        CComplexVector(int len, string file_name);
         CComplexVector(const CComplexVector &v)
         {
             len = v.len;
             id_children = v.id_children;
-            strcpy(file_name, v.file_name);
+            file_name = v.file_name;
             m_Real = v.m_Real;
             m_Imaginary = v.m_Imaginary;
         }
@@ -69,7 +69,7 @@ class CComplexVector
         CComplexVector& operator=(CComplexVector&& vector);
 
         static void Input(const char *filename, vector<CComplexVector *> &vector);
-        virtual void output(const char* filename) = 0;
+        virtual void output() = 0;
         virtual void show() = 0;
 
         CComplexNumber operator[](int index);
@@ -79,12 +79,12 @@ class ChildClass1 : public CComplexVector
 {
     public:
         ChildClass1() : CComplexVector() {};
-        ChildClass1(int len, const char *filename) : CComplexVector(len, filename) {};
+        ChildClass1(int len, string filename) : CComplexVector(len, filename) {};
 
         CComplexVector& operator=(const CComplexVector& vector);
         CComplexVector& operator=(CComplexVector&& vector);
 
-        virtual void output(const char* filename);
+        virtual void output();
         void show();
 };
 
@@ -92,12 +92,12 @@ class ChildClass2 : public CComplexVector
 {
     public:
         ChildClass2() : CComplexVector() {};
-        ChildClass2(int len, const char *filename) : CComplexVector(len, filename) {};
+        ChildClass2(int len, string filename) : CComplexVector(len, filename) {};
 
         CComplexVector& operator=(const CComplexVector& vector);
         CComplexVector& operator=(CComplexVector&& vector);
 
-        virtual void output(const char* filename);
+        virtual void output();
         void show();
 };
 

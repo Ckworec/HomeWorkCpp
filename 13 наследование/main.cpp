@@ -26,9 +26,10 @@ int main(void)
             (*vector[j]).show();
 
             child2 = (*vector[i]) + (*vector[j]);
-            cout << "--2--" << endl;
 
             child2.show();
+            cout << "\n" << endl;
+            child2.output();
         }
 
         else if (command == 2)
@@ -36,15 +37,23 @@ int main(void)
             cout << "Enter the index of the vector you want to substract: ";
             cin >> i >> j;
 
+            (*vector[i]).show();
+            (*vector[j]).show();
+
             child1 = (*vector[i]) - (*vector[j]);
 
             child1.show();
+            cout << "\n" << endl;
+            child1.output();
         }
 
         else if (command == 3)
         {
             cout << "Enter the index of the vector you want to multiplied: ";
             cin >> i >> j;
+
+            (*vector[i]).show();
+            (*vector[j]).show();
 
             ComplexN = (*vector[i]) * (*vector[j]);
 
@@ -55,6 +64,10 @@ int main(void)
         cin >> command;
     }
 
+    for (int i = 0; i < vector.size(); i ++)
+    {
+        (*vector[i]).output();
+    }
 
     return 0;
 }

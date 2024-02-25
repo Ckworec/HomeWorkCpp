@@ -1,24 +1,32 @@
 #include "CComplexVector.hpp"
 
-void ChildClass1 :: output(const char * filename)
+void ChildClass1 :: output()
 {
-    ofstream out(filename);
+    fstream out(file_name.c_str(), ios_base :: out | ios_base :: ate);
 
-        for (int j = 0; j < len; j ++)
-        {
-            out << "(" << m_Real[j] << " + i * " << m_Imaginary[j] << ")   ";;
-        }
+    out.seekg(0, ios_base :: end);
 
-        out << endl;
-}
-
-void ChildClass2 :: output(const char * filename)
-{
-    ofstream out(filename);
+    out << "Vector: " << endl;
 
     for (int j = 0; j < len; j ++)
     {
-        out << "(" << m_Real[j] << " + i * " << m_Imaginary[j] << ")\n";;
+        out << "(" << m_Real[j] << " + i * " << m_Imaginary[j] << ")   ";
+    }
+
+    out << endl;
+}
+
+void ChildClass2 :: output()
+{
+    fstream out(file_name.c_str(), ios_base :: out | ios_base :: ate);
+
+    out.seekg(0, ios_base :: end);
+
+    out << "Vector: " << endl;
+
+    for (int j = 0; j < len; j ++)
+    {
+        out << "(" << m_Real[j] << " + i * " << m_Imaginary[j] << ")\n";
     }
         
     out << endl;
@@ -29,15 +37,15 @@ CComplexVector :: CComplexVector()
     len = 0;
 }
 
-CComplexVector :: CComplexVector(int length, const char * filename)
+CComplexVector :: CComplexVector(int length, string filename)
 {
     len = length;
-    strcpy(file_name,filename);
+    file_name = filename;
 
     for (int i = 0; i < len; i ++)
     {
-        m_Real.push_back(0.1);
-        m_Imaginary.push_back(0.1);
+        m_Real.push_back(0);
+        m_Imaginary.push_back(0);
     }
 }
 
@@ -56,7 +64,9 @@ ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2)
         result.m_Imaginary[i] = v1.m_Imaginary[i] + v2.m_Imaginary[i];
     }
 
-    cout << "--1--" << endl;
+    result.file_name = v1.file_name;
+
+    //result.output();
 
     return result;
 }
@@ -70,6 +80,10 @@ ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2)
         result.m_Real[i] = v1.m_Real[i] - v2.m_Real[i];
         result.m_Imaginary[i] = v1.m_Imaginary[i] - v2.m_Imaginary[i];
     }
+
+    result.file_name = v1.file_name;
+
+    //result.output();
 
     return result;
 }
@@ -146,6 +160,8 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 name = (*it);
 
+                (*w).file_name = name;
+
                 ++it;
 
                 //cout << "--1--\n" << endl;
@@ -181,6 +197,9 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
                 ++it;
 
                 name = (*it);
+
+                (*w).file_name = name;
+
                 ++it;
 				
                 for (i = 0; /*i < vector[i] -> len && */it != std :: istream_iterator<std :: string>(); ++it)
@@ -212,20 +231,24 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
 void ChildClass1 :: show()
 {
-    cout << "ChildClass1: " << endl;
+    cout << "ChildClass1: " << file_name << endl;
 
     for (int i = 0; i < len; i ++)
     {
-        cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")" << endl;
+        cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")   ";
     }
+
+    cout << endl;
 }
 
 void ChildClass2 :: show()
 {
-    cout << "ChildClass2: " << endl;
+    cout << "ChildClass2: " << file_name << endl;
 
     for (int i = 0; i < len; i ++)
     {
-        cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")" << endl;
+        cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")   ";
     }
+
+    cout << endl;
 }
