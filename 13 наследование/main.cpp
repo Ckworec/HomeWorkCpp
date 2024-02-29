@@ -2,13 +2,13 @@
 
 int main(void)
 {
-    vector<CComplexVector *> vector;
+    vector<CComplexVector *> v;
     ChildClass1 child1;
     ChildClass2 child2;
     CComplexNumber ComplexN;
     int command = 0, i, j;
 
-    CComplexVector :: Input("data.txt", vector);
+    CComplexVector :: Input("data.txt", v);
 
     cout << "1. Fold \n2. Subtract \n3. Multiply \n" << endl;
 
@@ -22,14 +22,13 @@ int main(void)
             cout << "Enter the index of the vector you want to fold: ";
             cin >> i >> j;
 
-            (*vector[i]).show();
-            (*vector[j]).show();
+            (*v[i]).show();
+            (*v[j]).show();
 
-            child2 = (*vector[i]) + (*vector[j]);
+            child2 = (*v[i]) + (*v[j]);
 
             child2.show();
             cout << "\n" << endl;
-            //child2.output();
         }
 
         else if (command == 2)
@@ -37,14 +36,13 @@ int main(void)
             cout << "Enter the index of the vector you want to substract: ";
             cin >> i >> j;
 
-            (*vector[i]).show();
-            (*vector[j]).show();
+            (*v[i]).show();
+            (*v[j]).show();
 
-            child1 = (*vector[i]) - (*vector[j]);
+            child1 = (*v[i]) - (*v[j]);
 
             child1.show();
             cout << "\n" << endl;
-            //child1.output();
         }
 
         else if (command == 3)
@@ -52,10 +50,10 @@ int main(void)
             cout << "Enter the index of the vector you want to multiplied: ";
             cin >> i >> j;
 
-            (*vector[i]).show();
-            (*vector[j]).show();
+            (*v[i]).show();
+            (*v[j]).show();
 
-            ComplexN = (*vector[i]) * (*vector[j]);
+            ComplexN = (*v[i]) * (*v[j]);
 
             cout << ComplexN;
         }
@@ -64,9 +62,10 @@ int main(void)
         cin >> command;
     }
 
-    for (int i = 0; i < vector.size(); i ++)
+    for (size_t i = 0; i < v.size(); i ++)
     {
-        (*vector[i]).output();
+        (*v[i]).output();
+        delete v[i];
     }
 
     return 0;

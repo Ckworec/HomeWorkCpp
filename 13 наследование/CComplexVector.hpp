@@ -11,6 +11,8 @@
 #define eps 1e-20
 using namespace std;
 
+class CFabric;
+
 class CComplexNumber
 {
     private:
@@ -48,7 +50,7 @@ class CComplexVector
     public:
         int len = 0;
         int id_children;
-        string file_name;;
+        string file_name;
         vector<double> m_Real;
         vector<double> m_Imaginary;
 
@@ -68,7 +70,7 @@ class CComplexVector
         CComplexVector& operator=(const CComplexVector& vector);
         CComplexVector& operator=(CComplexVector&& vector);
 
-        static void Input(const char *filename, vector<CComplexVector *> &vector);
+        static void Input(const char *filename, vector<CComplexVector *> &v);
         virtual void output() = 0;
         virtual void show() = 0;
 
@@ -80,9 +82,11 @@ class ChildClass1 : public CComplexVector
     public:
         ChildClass1() : CComplexVector() {};
         ChildClass1(int len, string filename) : CComplexVector(len, filename) {};
+        ~ChildClass1() {};
+        ChildClass1(const ChildClass1 &v) : CComplexVector(v) {};
 
-        CComplexVector& operator=(const CComplexVector& vector);
-        CComplexVector& operator=(CComplexVector&& vector);
+        ChildClass1& operator=(const ChildClass1& vector);
+        ChildClass1& operator=(ChildClass1&& vector);
 
         virtual void output();
         void show();
@@ -93,9 +97,11 @@ class ChildClass2 : public CComplexVector
     public:
         ChildClass2() : CComplexVector() {};
         ChildClass2(int len, string filename) : CComplexVector(len, filename) {};
+        ~ChildClass2() {};
+        ChildClass2(const ChildClass2 &v) : CComplexVector(v) {};
 
-        CComplexVector& operator=(const CComplexVector& vector);
-        CComplexVector& operator=(CComplexVector&& vector);
+        ChildClass2& operator=(const ChildClass2& vector);
+        ChildClass2& operator=(ChildClass2&& vector);
 
         virtual void output();
         void show();

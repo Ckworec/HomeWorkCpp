@@ -106,14 +106,70 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
 	for (int k = 0; k < len; ++ k)
         {
-            m_Imaginary[k] = vector.m_Imaginary[k];
-            m_Real[k] = vector.m_Real[k];
+            m_Imaginary.push_back(vector.m_Imaginary[k]);
+            m_Real.push_back(vector.m_Real[k]);
         }
 	
 	return *this;
  }
 
  CComplexVector& CComplexVector :: operator=(CComplexVector &&v)
+ {
+    if (this == &v)
+            return *this;
+
+    len = v.len;
+    m_Real = move(v.m_Real);
+    m_Imaginary = move(v.m_Imaginary);
+
+    return *this;
+ }
+
+ ChildClass1& ChildClass1 :: operator=(const ChildClass1& vector)
+ {
+    if (this == &vector)
+                return *this;
+
+        len = vector.len;
+
+        for (int k = 0; k < len; ++ k)
+        {
+            m_Imaginary.push_back(vector.m_Imaginary[k]);
+            m_Real.push_back(vector.m_Real[k]);
+        }
+
+        return *this;
+ }
+
+ ChildClass1& ChildClass1 :: operator=(ChildClass1 &&v)
+ {
+    if (this == &v)
+            return *this;
+
+    len = v.len;
+    m_Real = move(v.m_Real);
+    m_Imaginary = move(v.m_Imaginary);
+
+    return *this;
+ }
+
+ ChildClass2& ChildClass2 :: operator=(const ChildClass2& vector)
+ {
+    if (this == &vector)
+                return *this;
+
+        len = vector.len;
+
+        for (int k = 0; k < len; ++ k)
+        {
+            m_Imaginary.push_back(vector.m_Imaginary[k]);
+            m_Real.push_back(vector.m_Real[k]);
+        }
+
+        return *this;
+ }
+
+ ChildClass2& ChildClass2 :: operator=(ChildClass2 &&v)
  {
     if (this == &v)
             return *this;
@@ -133,8 +189,8 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
     return CComplexNumber(re, im);
  }
 
- void CComplexVector :: Input(const char *FileName, vector<CComplexVector *> &vector)
-{
+ void CComplexVector :: Input(const char *FileName, vector<CComplexVector *> &v)
+ {
     ifstream f(FileName); 
     string str;
 
@@ -181,9 +237,9 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 (*w).id_children = 0;
 
-                (*w).len = 2;
+                (*w).len /= 2;
 
-                vector.push_back(w);
+                v.push_back(w);
             }
             if (fabs(stod(*it) - 1) < eps)
             {
@@ -221,10 +277,10 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 (*w).len /= 2;
 
-                vector.push_back(w);
+                v.push_back(w);
             }
         }
-	}
+    }
 }
 
 void ChildClass1 :: show()
