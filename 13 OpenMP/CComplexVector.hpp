@@ -12,6 +12,7 @@
 #include <time.h>
 #include <algorithm>
 #include <chrono>
+#include <omp.h>
 #define eps 1e-20
 using namespace std;
 

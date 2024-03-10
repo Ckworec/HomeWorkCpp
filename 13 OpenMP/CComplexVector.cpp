@@ -54,6 +54,8 @@ ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2)
 {
     ChildClass2 result(v1.len, v1.file_name);
 
+    auto start = chrono::steady_clock::now();
+
     #pragma omp parallel for
 
     for (int i = 0; i < v1.len; i ++)
@@ -61,6 +63,22 @@ ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2)
         result.m_Real[i] = v1.m_Real[i] + v2.m_Real[i];
         result.m_Imaginary[i] = v1.m_Imaginary[i] + v2.m_Imaginary[i];
     }
+
+    auto end = chrono::steady_clock::now();
+
+    std::cout << "Runtime parallel is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    start = chrono::steady_clock::now();
+
+    for (int i = 0; i < v1.len; i ++)
+    {
+        result.m_Real[i] = v1.m_Real[i] + v2.m_Real[i];
+        result.m_Imaginary[i] = v1.m_Imaginary[i] + v2.m_Imaginary[i];
+    }
+
+    end = chrono::steady_clock::now();
+
+    std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
     result.file_name = v1.file_name;
 
@@ -73,11 +91,31 @@ ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2)
 {
     ChildClass1 result(v1.len, v1.file_name);
 
+    auto start = chrono::steady_clock::now();
+
+    #pragma omp parallel for
+
     for (int i = 0; i < v1.len; i ++)
     {
         result.m_Real[i] = v1.m_Real[i] - v2.m_Real[i];
         result.m_Imaginary[i] = v1.m_Imaginary[i] - v2.m_Imaginary[i];
     }
+
+    auto end = chrono::steady_clock::now();
+
+    std::cout << "Runtime parallel is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    start = chrono::steady_clock::now();
+
+    for (int i = 0; i < v1.len; i ++)
+    {
+        result.m_Real[i] = v1.m_Real[i] - v2.m_Real[i];
+        result.m_Imaginary[i] = v1.m_Imaginary[i] - v2.m_Imaginary[i];
+    }
+
+    end = chrono::steady_clock::now();
+
+    std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
     result.file_name = v1.file_name;
 
@@ -352,7 +390,7 @@ void ChildClass1 :: show()
         cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")   ";
     }
 
-    cout << endl;
+    cout << endl << endl;
 }
 
 void ChildClass2 :: show()
@@ -364,7 +402,7 @@ void ChildClass2 :: show()
         cout << "(" << m_Real[i] << " + i * " << m_Imaginary[i] << ")   ";
     }
 
-    cout << endl;
+    cout << endl << endl;
 }
 
 /*ChildClass1& ChildClass1 :: operator+(const ChildClass1 &v1)

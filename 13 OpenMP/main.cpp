@@ -32,13 +32,13 @@ int main(void)
             (*v[i]).show();
             (*v[j]).show();
 
-            auto start = chrono::steady_clock::now();
+            //auto start = chrono::steady_clock::now();
 
             child2 = (*v[i]) + (*v[j]);
 
-            auto end = chrono::steady_clock::now();
+            //auto end = chrono::steady_clock::now();
 
-            std::cout << "Runtime is " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " sec\n";
+            //std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
             child2.show();
             cout << "\n" << endl;
@@ -52,13 +52,13 @@ int main(void)
             (*v[i]).show();
             (*v[j]).show();
 
-            auto start = chrono::steady_clock::now();
+            //auto start = chrono::steady_clock::now();
 
             child1 = (*v[i]) - (*v[j]);
 
-            auto end = chrono::steady_clock::now();
+            //auto end = chrono::steady_clock::now();
 
-            std::cout << "Runtime is " << chrono::duration_cast<chrono::milliseconds>(end - start).count()/1000. << " sec\n";
+           // std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
             child1.show();
             cout << "\n" << endl;
