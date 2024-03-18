@@ -4,8 +4,7 @@ int main(void)
 {
     vector<CComplexVector *> v;
     vector<CFabric *> fabric;
-    ChildClass1 child1;
-    ChildClass2 child2;
+    CComplexVector *vec1, *vec2;
     CComplexNumber ComplexN;
     int command = 0, i, j, num;
 
@@ -16,6 +15,29 @@ int main(void)
     fabric.push_back(new CFabric2);
 
     CComplexVector :: Input("data.txt", v, fabric);
+
+    cout << "Test: " << endl;
+
+    CComplexVector :: Generate(fabric, v);
+    CComplexVector :: Generate(fabric, v);
+
+    ChildClass2 *test1 = new ChildClass2(*v[0]), *test2 = new ChildClass2(*v[1]);
+
+    vec1 = *v[0] + v[1];
+    vec2 = *test1 + test2;
+    cout << "completed" << endl;
+
+    int l = 0;
+
+    for (int k = 0; k < 1000; k++)
+    {
+        if (fabs((*vec1).m_Imaginary[k] - (*vec2).m_Imaginary[k]) < eps) 
+        {
+            l ++;
+        }
+
+        cout << l << endl;
+    }
 
     cout << "1. Fold \n2. Subtract \n3. Multiply \n4. Generate\n" << endl;
 
@@ -29,18 +51,18 @@ int main(void)
             cout << "Enter the index of the vector you want to fold: ";
             cin >> i >> j;
 
-            (*v[i]).show();
-            (*v[j]).show();
+            //(*v[i]).show();
+            //(*v[j]).show();
 
             //auto start = chrono::steady_clock::now();
 
-            child2 = (*v[i]) + (*v[j]);
+            vec1 = *v[i] + v[j];
 
             //auto end = chrono::steady_clock::now();
 
             //std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
-            child2.show();
+            //child2.show();
             cout << "\n" << endl;
         }
 
@@ -54,13 +76,13 @@ int main(void)
 
             //auto start = chrono::steady_clock::now();
 
-            child1 = (*v[i]) - (*v[j]);
+            vec2 = *v[i] - v[j];
 
             //auto end = chrono::steady_clock::now();
 
            // std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
-            child1.show();
+            //child1.show();
             cout << "\n" << endl;
         }
 
@@ -87,10 +109,25 @@ int main(void)
                 CComplexVector :: Generate(fabric, v);
             }
 
-            for (int k = 0; k < num; k ++)
+            /*for (int k = 0; k < num; k ++)
             {
                 (*v[k]).show();
+            }*/
+        }
+
+        else if(command == 5)
+        {
+            int l = 0;
+
+            for (int k = 0; k < 100; k)
+            {
+                if ((*vec1)[k].m_Imaginary == (*vec2)[k].m_Imaginary)
+                {
+                    l ++;
+                }
             }
+
+            cout << l << endl;
         }
 
         cout << "Enter a command: ";
@@ -100,7 +137,7 @@ int main(void)
 
     for (size_t i = 0; i < v.size(); i ++)
     {
-        (*v[i]).output();
+        //(*v[i]).output();
         delete v[i];
     }
 

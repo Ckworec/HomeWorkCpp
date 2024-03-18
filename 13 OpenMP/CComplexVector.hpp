@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <chrono>
 #include <omp.h>
+#include <memory>
 #define eps 1e-20
 using namespace std;
 
@@ -20,10 +21,9 @@ class CFabric;
 
 class CComplexNumber
 {
-    private:
+    public:
         double m_Real;
         double m_Imaginary;
-    public:
         CComplexNumber();
         CComplexNumber(double Real, double Imaginary);
         CComplexNumber(const CComplexNumber &num)
@@ -69,11 +69,21 @@ class CComplexVector
             m_Real = v.m_Real;
             m_Imaginary = v.m_Imaginary;
         }
+        CComplexVector(CComplexVector &&v)
+        {
+            len = v.len;
+            id_children = v.id_children;
+            file_name = v.file_name;
+            m_Real = v.m_Real;
+            m_Imaginary = v.m_Imaginary;
+        }
 
         virtual ~CComplexVector();
 
         CComplexVector& operator=(const CComplexVector& vector);
         CComplexVector& operator=(CComplexVector&& vector);
+        virtual CComplexVector* operator+(const CComplexVector* vector);
+        virtual CComplexVector* operator-(const CComplexVector* vector);
 
         static void Input(const char *filename, vector<CComplexVector *> &v, vector<CFabric *> &fabric);
         static void Generate(vector<CFabric *> &fabric, vector<CComplexVector *> &v);
@@ -90,9 +100,14 @@ class ChildClass1 : public CComplexVector
         ChildClass1(int len, string filename) : CComplexVector(len, filename) {};
         ~ChildClass1() {};
         ChildClass1(const ChildClass1 &v) : CComplexVector(v) {};
+        ChildClass1(ChildClass1&& vector) : CComplexVector(vector) {};
 
         ChildClass1& operator=(const ChildClass1& vector);
         ChildClass1& operator=(ChildClass1&& vector);
+        ChildClass1& operator=(const CComplexVector& vector);
+        ChildClass1& operator=(CComplexVector&& vector);
+        CComplexVector* operator+(const CComplexVector* vector);
+        CComplexVector* operator-(const CComplexVector* vector);
 
         virtual void output();
         void show();
@@ -103,11 +118,18 @@ class ChildClass2 : public CComplexVector
     public:
         ChildClass2() : CComplexVector() {};
         ChildClass2(int len, string filename) : CComplexVector(len, filename) {};
+        ChildClass2(CComplexVector& v) : CComplexVector(v) {};
         ~ChildClass2() {};
         ChildClass2(const ChildClass2 &v) : CComplexVector(v) {};
+        ChildClass2(ChildClass2&& vector) : CComplexVector(vector) {};
 
         ChildClass2& operator=(const ChildClass2& vector);
+        ChildClass2& operator=(const ChildClass1& vector);
         ChildClass2& operator=(ChildClass2&& vector);
+        ChildClass2& operator=(const CComplexVector& vector);
+        ChildClass2& operator=(CComplexVector&& vector);
+        CComplexVector* operator+(const CComplexVector* vector);
+        CComplexVector* operator-(const CComplexVector* vector);
 
         virtual void output();
         void show();
@@ -124,7 +146,7 @@ class CFabric1 : public CFabric
 {
     public:
         virtual CComplexVector *Create() {return new ChildClass1;}
-};
+};  
 
 class CFabric2 : public CFabric
 {
@@ -132,6 +154,6 @@ class CFabric2 : public CFabric
         virtual CComplexVector *Create() {return new ChildClass2;}
 };
 
-ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2);
-ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2);
+//ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2);
+//ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2);
 CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2);

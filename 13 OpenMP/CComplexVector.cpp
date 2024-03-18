@@ -50,76 +50,184 @@ CComplexVector :: ~CComplexVector()
 
 }
 
-ChildClass2 operator+(const CComplexVector &v1, const CComplexVector &v2)
+CComplexVector* ChildClass1 :: operator+(const CComplexVector* v2)
 {
-    ChildClass2 result(v1.len, v1.file_name);
+    ChildClass1* result = new ChildClass1;
+
+    for (int i = 0; i < len; i ++)
+    {
+        result->m_Imaginary.push_back(0);
+        result->m_Real.push_back(0);
+    }
 
     auto start = chrono::steady_clock::now();
 
     #pragma omp parallel for
 
-    for (int i = 0; i < v1.len; i ++)
+    for (int i = 0; i < len; i ++)
     {
-        result.m_Real[i] = v1.m_Real[i] + v2.m_Real[i];
-        result.m_Imaginary[i] = v1.m_Imaginary[i] + v2.m_Imaginary[i];
+        for (int j = 0; j < 400; j ++)
+        {
+            result->m_Real[i] = m_Real[i] + v2->m_Real[i];
+            result->m_Imaginary[i] = m_Imaginary[i] + v2->m_Imaginary[i];
+        }
     }
 
     auto end = chrono::steady_clock::now();
 
-    std::cout << "Runtime parallel is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime parallel 1 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
-    start = chrono::steady_clock::now();
+    result->file_name = file_name;
 
-    for (int i = 0; i < v1.len; i ++)
-    {
-        result.m_Real[i] = v1.m_Real[i] + v2.m_Real[i];
-        result.m_Imaginary[i] = v1.m_Imaginary[i] + v2.m_Imaginary[i];
-    }
-
-    end = chrono::steady_clock::now();
-
-    std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
-
-    result.file_name = v1.file_name;
-
-    result.output();
+    //result.output();
 
     return result;
 }
 
-ChildClass1 operator-(const CComplexVector &v1, const CComplexVector &v2)
+CComplexVector* ChildClass1 :: operator-(const CComplexVector* v2)
 {
-    ChildClass1 result(v1.len, v1.file_name);
+    ChildClass1* result = new ChildClass1;
+
+    for (int i = 0; i < len; i ++)
+    {
+        result->m_Imaginary.push_back(0);
+        result->m_Real.push_back(0);
+    }
 
     auto start = chrono::steady_clock::now();
 
     #pragma omp parallel for
 
-    for (int i = 0; i < v1.len; i ++)
+    for (int i = 0; i < len; i ++)
     {
-        result.m_Real[i] = v1.m_Real[i] - v2.m_Real[i];
-        result.m_Imaginary[i] = v1.m_Imaginary[i] - v2.m_Imaginary[i];
+        for (int j = 0; j < 400; j ++)
+        {
+            result->m_Real[i] = m_Real[i] - v2->m_Real[i];
+            result->m_Imaginary[i] = m_Imaginary[i] - v2->m_Imaginary[i];
+        }
     }
 
     auto end = chrono::steady_clock::now();
 
-    std::cout << "Runtime parallel is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime parallel 1 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
 
-    start = chrono::steady_clock::now();
+    result->file_name = file_name;
 
-    for (int i = 0; i < v1.len; i ++)
+    //result.output();
+
+    return result;
+}
+
+CComplexVector* ChildClass2 :: operator+(const CComplexVector* v2)
+{
+    ChildClass2* result = new ChildClass2;
+
+    for (int i = 0; i < len; i ++)
     {
-        result.m_Real[i] = v1.m_Real[i] - v2.m_Real[i];
-        result.m_Imaginary[i] = v1.m_Imaginary[i] - v2.m_Imaginary[i];
+        result->m_Imaginary.push_back(0);
+        result->m_Real.push_back(0);
     }
 
-    end = chrono::steady_clock::now();
+    auto start = chrono::steady_clock::now();
 
-    std::cout << "Runtime is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    for (int i = 0; i < len; i ++)
+    {
+        for (int j = 0; j < 400; j ++)
+        {
+            result->m_Real[i] = m_Real[i] + v2->m_Real[i];
+            result->m_Imaginary[i] = m_Imaginary[i] + v2->m_Imaginary[i];
+        }
+    }
 
-    result.file_name = v1.file_name;
+    auto end = chrono::steady_clock::now();
 
-    result.output();
+    std::cout << "Runtime 2 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    result->file_name = file_name;
+
+    //result.output();
+
+    return result;
+}
+
+CComplexVector* ChildClass2 :: operator-(const CComplexVector* v2)
+{
+    ChildClass2* result = new ChildClass2;
+
+    for (int i = 0; i < len; i ++)
+    {
+        result->m_Imaginary.push_back(0);
+        result->m_Real.push_back(0);
+    }
+
+    auto start = chrono::steady_clock::now();
+
+    for (int i = 0; i < len; i ++)
+    {
+        for (int j = 0; j < 400; j ++)
+        {
+            result->m_Real[i] = m_Real[i] - v2->m_Real[i];
+            result->m_Imaginary[i] = m_Imaginary[i] - v2->m_Imaginary[i];
+        }
+    }
+
+    auto end = chrono::steady_clock::now();
+
+    std::cout << "Runtime 2 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    result->file_name = file_name;
+
+    //result.output();
+
+    return result;
+}
+
+CComplexVector* CComplexVector :: operator+(const CComplexVector* v2)
+{
+    CComplexVector *result = new ChildClass2;
+
+    auto start = chrono::steady_clock::now();
+
+    #pragma omp parallel for
+
+    for (int i = 0; i < len; i ++)
+    {
+        result -> m_Real[i] = m_Real[i] + v2->m_Real[i];
+        result -> m_Imaginary[i] = m_Imaginary[i] + v2->m_Imaginary[i];
+    }
+
+    auto end = chrono::steady_clock::now();
+
+    std::cout << "Runtime parallel 3 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    result -> file_name = file_name;
+
+    result -> output();
+
+    return result;
+}
+
+CComplexVector* CComplexVector :: operator-(const CComplexVector* v2)
+{
+    ChildClass2 *result = new ChildClass2;
+
+    auto start = chrono::steady_clock::now();
+
+    #pragma omp parallel for
+
+    for (int i = 0; i < len; i ++)
+    {
+        result -> m_Real[i] = m_Real[i] - v2->m_Real[i];
+        result -> m_Imaginary[i] = m_Imaginary[i] - v2->m_Imaginary[i];
+    }
+
+    auto end = chrono::steady_clock::now();
+
+    std::cout << "Runtime parallel 3 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+
+    result -> file_name = file_name;
+
+    result -> output();
 
     return result;
 }
@@ -144,6 +252,9 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
 	len = vector.len;
 
+    m_Real.clear();
+    m_Imaginary.clear();
+
 	for (int k = 0; k < len; ++ k)
         {
             m_Imaginary.push_back(vector.m_Imaginary[k]);
@@ -157,6 +268,9 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
  {
     if (this == &v)
             return *this;
+
+            m_Real.clear();
+    m_Imaginary.clear();
 
     len = v.len;
     m_Real = move(v.m_Real);
@@ -172,6 +286,28 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
         len = vector.len;
 
+        m_Real.clear();
+    m_Imaginary.clear();
+
+        for (int k = 0; k < len; ++ k)
+        {
+            m_Imaginary.push_back(vector.m_Imaginary[k]);
+            m_Real.push_back(vector.m_Real[k]);
+        }
+
+        return *this;
+ }
+
+ ChildClass1& ChildClass1 :: operator=(const CComplexVector& vector)
+ {
+    if (this == &vector)
+                return *this;
+
+        len = vector.len;
+
+        m_Real.clear();
+    m_Imaginary.clear();
+
         for (int k = 0; k < len; ++ k)
         {
             m_Imaginary.push_back(vector.m_Imaginary[k]);
@@ -185,6 +321,24 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
  {
     if (this == &v)
             return *this;
+
+    m_Real.clear();
+    m_Imaginary.clear();
+
+    len = v.len;
+    m_Real = move(v.m_Real);
+    m_Imaginary = move(v.m_Imaginary);
+
+    return *this;
+ }
+
+ ChildClass1& ChildClass1 :: operator=(CComplexVector &&v)
+ {
+    if (this == &v)
+            return *this;
+
+            m_Real.clear();
+    m_Imaginary.clear();
 
     len = v.len;
     m_Real = move(v.m_Real);
@@ -200,6 +354,28 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
         len = vector.len;
 
+        m_Real.clear();
+    m_Imaginary.clear();
+
+        for (int k = 0; k < len; ++ k)
+        {
+            m_Imaginary.push_back(vector.m_Imaginary[k]);
+            m_Real.push_back(vector.m_Real[k]);
+        }
+
+        return *this;
+ }
+
+ ChildClass2& ChildClass2 :: operator=(const CComplexVector& vector)
+ {
+    if (this == &vector)
+                return *this;
+
+        len = vector.len;
+
+        m_Real.clear();
+    m_Imaginary.clear();
+
         for (int k = 0; k < len; ++ k)
         {
             m_Imaginary.push_back(vector.m_Imaginary[k]);
@@ -213,6 +389,24 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
  {
     if (this == &v)
             return *this;
+
+            m_Real.clear();
+    m_Imaginary.clear();
+
+    len = v.len;
+    m_Real = move(v.m_Real);
+    m_Imaginary = move(v.m_Imaginary);
+
+    return *this;
+ }
+
+ ChildClass2& ChildClass2 :: operator=(CComplexVector &&v)
+ {
+    if (this == &v)
+            return *this;
+
+            m_Real.clear();
+    m_Imaginary.clear();
 
     len = v.len;
     m_Real = move(v.m_Real);
