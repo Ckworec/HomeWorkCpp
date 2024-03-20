@@ -25,7 +25,6 @@ int main(void)
 
     vec1 = *v[0] + v[1];
     vec2 = *test1 + test2;
-    cout << "completed" << endl;
 
     int l = 0;
 
@@ -35,8 +34,11 @@ int main(void)
         {
             l ++;
         }
+    }
 
-        cout << l << endl;
+    if (l == 1000)
+    {
+        cout << "Test completed." << endl << endl;
     }
 
     cout << "1. Fold \n2. Subtract \n3. Multiply \n4. Generate\n" << endl;

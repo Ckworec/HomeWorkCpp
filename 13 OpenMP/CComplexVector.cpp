@@ -60,7 +60,7 @@ CComplexVector* ChildClass1 :: operator+(const CComplexVector* v2)
         result->m_Real.push_back(0);
     }
 
-    auto start = chrono::steady_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     #pragma omp parallel for
 
@@ -73,9 +73,9 @@ CComplexVector* ChildClass1 :: operator+(const CComplexVector* v2)
         }
     }
 
-    auto end = chrono::steady_clock::now();
+    auto end = chrono::high_resolution_clock::now();
 
-    std::cout << "Runtime parallel 1 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime parallel 1 is " << chrono::duration<double>(end - start).count() << " sec\n" << endl;
 
     result->file_name = file_name;
 
@@ -94,7 +94,7 @@ CComplexVector* ChildClass1 :: operator-(const CComplexVector* v2)
         result->m_Real.push_back(0);
     }
 
-    auto start = chrono::steady_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     #pragma omp parallel for
 
@@ -107,9 +107,9 @@ CComplexVector* ChildClass1 :: operator-(const CComplexVector* v2)
         }
     }
 
-    auto end = chrono::steady_clock::now();
+    auto end = chrono::high_resolution_clock::now();
 
-    std::cout << "Runtime parallel 1 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime parallel 1 is " << chrono::duration<double>(end - start).count() << " sec\n" << endl;
 
     result->file_name = file_name;
 
@@ -128,7 +128,7 @@ CComplexVector* ChildClass2 :: operator+(const CComplexVector* v2)
         result->m_Real.push_back(0);
     }
 
-    auto start = chrono::steady_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     for (int i = 0; i < len; i ++)
     {
@@ -139,9 +139,9 @@ CComplexVector* ChildClass2 :: operator+(const CComplexVector* v2)
         }
     }
 
-    auto end = chrono::steady_clock::now();
+    auto end = chrono::high_resolution_clock::now();
 
-    std::cout << "Runtime 2 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime 2 is " << chrono::duration<double>(end - start).count() << " sec\n" << endl;
 
     result->file_name = file_name;
 
@@ -160,7 +160,7 @@ CComplexVector* ChildClass2 :: operator-(const CComplexVector* v2)
         result->m_Real.push_back(0);
     }
 
-    auto start = chrono::steady_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     for (int i = 0; i < len; i ++)
     {
@@ -171,9 +171,9 @@ CComplexVector* ChildClass2 :: operator-(const CComplexVector* v2)
         }
     }
 
-    auto end = chrono::steady_clock::now();
+    auto end = chrono::high_resolution_clock::now();
 
-    std::cout << "Runtime 2 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime 2 is " << chrono::duration<double>(end - start).count() << " sec\n" << endl;
 
     result->file_name = file_name;
 
@@ -198,7 +198,7 @@ CComplexVector* CComplexVector :: operator+(const CComplexVector* v2)
 
     auto end = chrono::steady_clock::now();
 
-    std::cout << "Runtime parallel 3 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n";
+    std::cout << "Runtime parallel 3 is " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microsec\n" << endl;
 
     result -> file_name = file_name;
 
