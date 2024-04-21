@@ -79,11 +79,6 @@ PolygonalArea :: PolygonalArea(int length)
     len = length;
     FILE *f;
 
-    /*for (int i = 0; i < len; i ++)
-    {
-        component.push_back(Point(rand() % 50, rand() % 50));
-    }*/
-
     f = fopen("data.txt", "r");
     while (fscanf(f, "%lf%lf", &x, &y) == 2)
     {
