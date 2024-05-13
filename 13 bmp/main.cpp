@@ -23,7 +23,7 @@ int main()
 
     Image im_1(0, 0), im_2(0, 0);
 
-    im_1.Read("input_3.bmp");
+    im_1.Read("input_6.bmp");
     im_2.Read("input_5.bmp");
 
     im_1.Export("output_4.bmp");
