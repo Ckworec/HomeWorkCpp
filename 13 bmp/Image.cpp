@@ -51,6 +51,13 @@ void Image::Read(const char* filename)
     m_width = informationHeader[4] + (informationHeader[5] << 8) + (informationHeader[6] << 16) + (informationHeader[7] << 24);
     m_height = informationHeader[8] + (informationHeader[9] << 8) + (informationHeader[10] << 16) + (informationHeader[11] << 24);
 
+    const int sd = fileHeader[10] + (fileHeader[11] << 8) + (fileHeader[12] << 16) + (fileHeader[13] << 24);
+
+    f.close();
+    f.open(filename, std::ios::in | std::ios::binary);
+
+    f.ignore(sd);
+
     m_colors.resize(m_width * m_height);
 
     const int paddingAmount = ((4 - (m_width * 3) % 4) % 4);
@@ -204,7 +211,7 @@ void Image::Export(const char* filename){
     std :: cout << "Image exported successfully" << std :: endl;
 }
 
-void Image::Brightness(Image& im)
+void Image::Brightness(Image& im, const char* name)
 {
     Color col;
     float br_1, br_2, br;
@@ -240,5 +247,5 @@ void Image::Brightness(Image& im)
         }
     }
 
-    out.Export("output_1.bmp");
+    out.Export(name);
 }

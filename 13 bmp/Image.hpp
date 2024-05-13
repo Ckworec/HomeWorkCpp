@@ -23,7 +23,7 @@ class Image{
         void Read(const char* filename);
         void Export(const char* filename);
 
-        void Brightness(Image& im);
+        void Brightness(Image& im, const char* name);
     private:
         int m_width;
         int m_height;
