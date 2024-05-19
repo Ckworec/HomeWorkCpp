@@ -61,13 +61,14 @@ void Image::Read(const char* filename)
     m_colors.resize(m_width * m_height);
 
     const int paddingAmount = ((4 - (m_width * 3) % 4) % 4);
+    int px_sz = informationHeader[14] / 8;
 
     for (int y = 0; y < m_height; y ++)
     {
         for (int x = 0; x < m_width; x ++)
         {
-            unsigned char color[3];
-            f.read(reinterpret_cast<char*>(color), 3);
+            unsigned char color[px_sz];
+            f.read(reinterpret_cast<char*>(color), px_sz);
 
             m_colors[y * m_width + x].r = static_cast<float>(color[2]) / 255.0f;
             m_colors[y * m_width + x].g = static_cast<float>(color[1]) / 255.0f; 
