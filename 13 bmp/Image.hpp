@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#define eps 1.0e-15
 
 struct Color{
     float r, g, b;

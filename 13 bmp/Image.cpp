@@ -230,7 +230,7 @@ void Image::Brightness(Image& im, const char* name)
                 col = im.GetColor(x, y);
                 br_2 = (col.r + col.g + col.b) / 3.0f;
 
-                if (br_1 != 0)
+                if (br_1 > eps)
                 {
                     br = br_2 / br_1;
                     
