@@ -8,4 +8,4 @@ Image.o: Image.cpp
 	g++ -c Image.cpp
 
 clean:
-	rm -f *.o *.out *.exe
+	del -f *.o *.out *.exe

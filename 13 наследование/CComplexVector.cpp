@@ -219,7 +219,7 @@ CComplexNumber operator*(const CComplexVector &v1, const CComplexVector &v2)
 
                 ++it;
 				
-                for (i = 0; /*i < vector[i] -> len && */it != istream_iterator<string>(); ++it)
+                for (i = 0; it != istream_iterator<string>(); ++it)
                 {
                     if (i % 2 == 0)
                     {
